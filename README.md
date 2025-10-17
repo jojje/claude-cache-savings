@@ -12,7 +12,8 @@ Provides light-weight analytics about how valuable "prompt caching" is to _your_
 # Usage
 
 1. Export API usage CSV files from Antropic's [API usage dashboard](https://console.anthropic.com/usage?group_by=token_type). Click the `Export` button.
-2. Have the script analyze one or several of those files, each covering period up to one month of usage: `claude-cache-savings *.csv`
+2. Have the script analyze one or several of those files, each covering period up to one month of usage:  
+   `claude-cache-savings *.csv`
 
 ## Options
 
@@ -128,9 +129,9 @@ Like for Input/output token ratio, these numbers are mostly about you and _your_
 
 ## Updating pricing / Staying up-to-date
 
-This script uses a pricing file derived from Anthropic's published model pricing pages since Anthropic does not provide an API for fetching this information automtically. As such this snapshot-information is likely to become stale if anthropic either introduces new models or changes the pricing for any of them, including the caching discounts.
+This script uses a pricing file derived from Anthropic's published model pricing pages since Anthropic does not provide an API for fetching this information automatically. As such this snapshot-information is likely to become stale if anthropic either introduces new models or changes the pricing for any of them, including the caching discounts.
 
-For that reason the pricing information embedded is saved as a JSON file upon first use to your home directory, in the folder `$HOME/.config/claude-cache-savings/config.json` or on windows ``%HOMEPATH%\.config\claude-cache-savings\config.json`.
+For that reason the pricing information embedded is saved as a JSON file upon first use to your home directory, in the folder `$HOME/.config/claude-cache-savings/config.json` or on windows `%HOMEPATH%\.config\claude-cache-savings\config.json`.
 
 If pricing changes, you can just revise the numbers in that file.
 
@@ -140,11 +141,17 @@ The config file has two elements to it:
 1. The pricing dimensions for each model **family**, in $ (USD) / 1M tokens as shown on the provider's pricing related web pages.
 2. A mapping between a specific model ID and a model family.
 
-The reason for this separation is to make it as simple as possible to deal with new model variants in a given family, and the pricing, which is set for an entire model family and not for a specific model in that family. I.e. there is a many-to-one relationship between models and a model family.
+The reason for this separation is to make it as easy as possible to deal with new model variants in a given family, and the pricing, which is set for an entire model family and not for a specific model in that family. I.e. there is a many-to-one relationship between models and a model family.
 
 If the pricing changes, then it changes for an entire family, so you just have to revise the changed pricing value for _that_ specific family and it will take effect for all models of that family. If a new model is introduced, such as an update to Sonnet, then that model will have a _new_ model ID, so you just add that new model ID to the second section, and the Sonnet family pricing will automatically be applied to this model as well.
 
-If you've used a model (id) not covered by this script, the script will tell you about it when run. For instance `[!] Warning: the following model-ids do not have a pricing link established and will be excluded from the statistics calculation: {'claude-opus-4-1-20250805'}`. This means you have to add `claude-opus-4-1-20250805` to the Opus family in the config file so the script knows what price to assign for this model's API usage. Once done, the warning goes away and the usage + cost incurreed by this model will be included in the statistics as well. I.e. link this model ID to the family by adding the following to the `pricing` section of the config file: `"claude-opus-4-1-20250805": "Opus"`
+If you've used a model (id) not covered by this script, the script will tell you about it when run. For instance 
+
+```
+[!] Warning: the following model-ids do not have a pricing link established and will be excluded from the statistics calculation: {'claude-opus-4-1-20250805'}
+```
+
+This means you have to add `claude-opus-4-1-20250805` to the Opus family in the config file so the script knows what price to assign for this model's API usage. Once done, the warning goes away and the usage + cost incurreed by this model will be included in the statistics as well. I.e. link this model ID to the family by adding the following to the `pricing` section of the config file: `"claude-opus-4-1-20250805": "Opus"`
 
 The pricing information specified and required for a model family is as follows:
 
