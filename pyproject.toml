@@ -1,0 +1,56 @@
+
+[project]
+name = "claude-cache-savings"
+description = "Calculates Anthropic Claude cost savings from use of prompt caching"
+keywords = ["Athropic", "Claude", "Cost", "Cache", "Caching", "Price", "Usage", "Statistics", "Stats"]
+authors = [{name = "jojje", email = "tinjon+pypi@gmail.com"}]
+license = "MIT"
+readme = "README.md"
+
+requires-python = ">=3.10,<4.0"
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+]
+
+dynamic = ["version"]
+
+[project.scripts]
+claude-cache-savings = "claude_cache_savings.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/jojje/claude-cache-savings"
+Repository = "https://github.com/jojje/claude-cache-savings"
+Issues = "https://github.com/jojje/claude-cache-savings/issues"
+
+[tool.poetry]
+version = "0.0.0"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+pattern = "default-unprefixed"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = ">=7.3.0"
+
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 120
+exclude = [".git", "tests/*", ".venv", "__pycache__"]
+max-complexity = 10
+
+[tool.distutils.bdist_wheel]
+universal = true
