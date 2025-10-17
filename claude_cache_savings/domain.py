@@ -1,6 +1,7 @@
 import sys
 import csv
 from types import SimpleNamespace
+from .config import ensure_config_persisted, load_config
 
 # USD / 1M tokens
 MTOKEN_COSTS = {
@@ -19,6 +20,9 @@ MODELS = {
     'claude-opus-4-1-20250805': 'Opus',
     'claude-opus-4-20250514': 'Opus',
  }
+
+ensure_config_persisted(MTOKEN_COSTS, MODELS)
+MTOKEN_COSTS, MODELS = load_config()
 
 TOKEN_TYPES = {
     'usage_input_tokens_no_cache': 'input',
